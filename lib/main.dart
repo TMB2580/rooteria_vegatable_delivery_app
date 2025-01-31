@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:myapp/auth/login_or_register.dart';
 import 'package:myapp/models/restaurant.dart';
