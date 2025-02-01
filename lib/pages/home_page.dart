@@ -20,8 +20,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   // tab controller
-    List<Food> get fullMenu => [];
-    List<Food> get fulMenu => [];
+    List<Food> get fullMenu => []; 
+
 
     //edges inside for list view
     EdgeInsets get EdgeInside => EdgeInsets.zero;
@@ -45,18 +45,17 @@ class _HomePageState extends State<HomePage>
   }
 
   // sort out and return a list of food items that belong to a specific category
-  List<Food> _filterMenuByCategory(FoodCategory category, List<Food> fulMenu) {
+  List<Food> _filterMenuByCategory(FoodCategory category, List<Food> fullMenu) {
     return fullMenu.where((food) => food.category == category).toList();
   }
 
   // return list of foods in given category
   List<Widget> getFoodInThisCategory(List<Food> fullMenu) {
     return FoodCategory.values.map((category) {
+      //get category menu
+      List<Food> categoryMenu = _filterMenuByCategory(category, fullMenu);
 
-      // get category menu
-      List<Food> categoryMenu = _filterMenuByCategory(category, fulMenu);
-
-      return ListView.builder(
+      return ListView.builder( 
         itemCount: categoryMenu.length,
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInside,
@@ -67,16 +66,17 @@ class _HomePageState extends State<HomePage>
           // return food tile UI
           return FoodTile(
             food: food, 
-            onTap: () => Navigator.push(context, 
-            MaterialPageRoute(
-              builder: (context) => FoodPage(food: food,
+            onTap: () => Navigator.push(
+              context, 
+              MaterialPageRoute(
+                builder: (context) => FoodPage(food: food),
             ),
           ),
-        ),
+        );
+      },
       );
-    },
-  );
-  }).toList();
+    }).toList(); 
+
 }
 
   @override

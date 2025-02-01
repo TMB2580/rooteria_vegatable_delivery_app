@@ -1,8 +1,8 @@
 import 'package:myapp/models/food.dart';
 
-class CartItems {
+class CartItem {
   Food food;
-  List<Addon> selecteAddons;
+  List<Addon> selectedAddons;
   int quantity;
 
   CartItem({
@@ -12,8 +12,7 @@ class CartItems {
   });
 
   double get totalPrice {
-    double addonsPrice =
-        selecteAddons.fold(0, (aum, addon) => sum + addon.price);
+    double addonsPrice = selectedAddons.fold(0, (sum, addon) => sum + addon.price);
     return (food.price + addonsPrice) * quantity;
   }
 }

@@ -6,10 +6,7 @@ class FoodPage extends StatefulWidget {
   final Food food;
   final Map<Addon, bool> selectedAddons = {};
 
-  FoodPage({
-    super.key, 
-    required this.food,
-    }) {
+  FoodPage({super.key, required this.food}) {
     // initialize selected addons to be false, if availableAddons is not null
     for (Addon addon in food.availableAddons) {
       selectedAddons[addon] = false;
@@ -21,6 +18,18 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
+  // method to add to cart
+  void addToCart(Food food, Map<Addon, bool> selectedAddon) {
+    // close the current food page and go back to menu
+    Navigator.pop(context);
+    List<Addon> currentlySelectedAddons = [];
+    for (Addon addon in widget.food.availableAddons) {
+      if (widget.selectedAddons[addon] == true) {
+        currentlySelectedAddons.add(addon);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -88,34 +97,34 @@ class _FoodPageState extends State<FoodPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.zero,
-                            itemCount: widget.food.availableAddons.length,
-                            itemBuilder: (context, index) {
-                                // get individual addon for food
-                                Addon addon = widget.food.availableAddons[index];
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.zero,
+                          itemCount: widget.food.availableAddons.length,
+                          itemBuilder: (context, index) {
+                            // get individual addon for food
+                            Addon addon = widget.food.availableAddons[index];
 
-                                // return check box UI
-                                    return CheckboxListTile(
-                                      title: Text(addon.name),
-                                      subtitle: Text(
-                                        '\$${addon.price}',
-                                        style: TextStyle(
-                                          color:Theme.of(context).colorScheme.primary,
-                                        ),
-                                      ),
-                                      value: widget.selectedAddons[addon],
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          if (value != null) {
-                                            widget.selectedAddons[addon] = value;
-                                          }
-                                        });
-                                      },
-                                    );
-                                  },
+                            // return check box UI
+                            return CheckboxListTile(
+                              title: Text(addon.name),
+                              subtitle: Text(
+                                '\$${addon.price}',
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
+                              ),
+                              value: widget.selectedAddons[addon],
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  if (value != null) {
+                                    widget.selectedAddons[addon] = value;
+                                  }
+                                });
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -123,8 +132,8 @@ class _FoodPageState extends State<FoodPage> {
 
                 // button -> add to cart
                 MyButton(
-                  text: "Add to Cart", 
-                  onTap: () {},
+                  text: "Add to Cart",
+                  onTap: () => addToCart(widget.food, widget.selectedAddons),
                 ),
 
                 const SizedBox(height: 25),
@@ -142,7 +151,7 @@ class _FoodPageState extends State<FoodPage> {
                 color: Theme.of(context).colorScheme.secondary,
                 shape: BoxShape.circle,
               ),
-            
+
               child: IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(Icons.arrow_back_ios_rounded),
