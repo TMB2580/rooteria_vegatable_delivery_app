@@ -11,6 +11,14 @@ class CartItem {
     this.quantity = 1,
   });
 
+  String get name {
+    return food.name;
+  }
+
+  double get price {
+    return food.price;
+  }
+
   double get totalPrice {
     double addonsPrice = selectedAddons.fold(0, (sum, addon) => sum + addon.price);
     return (food.price + addonsPrice) * quantity;

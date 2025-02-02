@@ -1,9 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myapp/models/cart_items.dart';
-
-import 'food.dart'; // Import the Food class
-
+import 'package:intl/intl.dart';
+import 'food.dart';
 class Restaurant extends ChangeNotifier {
   // list of food menu
   final List<Food> _menu = [
@@ -255,11 +254,11 @@ class Restaurant extends ChangeNotifier {
   final List<CartItem> _cart = [];
 
   // add to cart
-  void addToCart(Food, food, List<Addon> selectedAddons) {
+  void addToCart(Food, List<Addon> selectedAddons) {
     //see if there is a cart item already with same food and selected addons
     CartItem? cartItem = _cart.firstWhereOrNull((item) {
       // check if the food item are same
-      bool isSameFood = item.food == food;
+      bool isSameFood = item.food == Food;
 
       // check if the list of selected addons are the same
       bool isSameAddons = ListEquality().equals(
@@ -275,7 +274,7 @@ class Restaurant extends ChangeNotifier {
     }
     //otherwise, add new cart item to cart
     else {
-      _cart.add(CartItem(food: food, selectedAddons: selectedAddons));
+      _cart.add(CartItem(food: Food, selectedAddons: selectedAddons));
     }
     notifyListeners();
   }
@@ -334,9 +333,49 @@ class Restaurant extends ChangeNotifier {
 
   */
 
-  // generate a receipy
+  // generate a recipt
+String displayCartReceipt(List<Addon> addons) { 
+  final receipt = StringBuffer();
+  receipt.writeln("Here's your receipt.");
 
-  // format double value into money
+  receipt.writeln();
 
-  // format list of addons into a string summary
+  // Format the date to include up to seconds only
+  String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+  receipt.writeln("Date: $formattedDate"); // Add date to receipt
+
+  receipt.writeln(formattedDate);
+  receipt.writeln();
+  receipt.writeln("-------------");
+
+  // Iterate through addons and add to receipt
+  for (final cartItem in _cart) {
+    receipt.writeln(
+      "${cartItem.quantity} x ${cartItem.name} - ${_formatPrice(cartItme.food.price)}");
+    if (cartItem.selectedAddons.isNotEmpty){
+      receipt
+        .writeln("    Add-ons: ${_formatAddons(cartItem.selectedAddons)}")
+    }
+    receipt.writeln();
+  }
+
+  receipt.writeln("----------------");
+  receipt.writeln();
+  receipt.writeln("Total Item: ${_formatPrice(getTotalPrice())}");
+
+  return receipt.toString();
+}
+
+// Format double value into money
+String _formatPrice(double price) {
+  return "\$${price.toStringAsFixed(2)}";
+}
+
+// Format list of addons into a string summary
+String _formatAddons(List<Addon> addons) {
+  return addons
+      .map((addon) => "${addon.name} (${_formatPrice(addon.price)})")
+      .join(", ");
+}
+
 }
