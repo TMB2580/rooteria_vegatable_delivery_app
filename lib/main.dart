@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/auth/login_or_register.dart';
 import 'package:myapp/models/restaurant.dart';
+import 'package:myapp/pages/splash_screen_page.dart';
 import 'package:myapp/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 // Corrected login_page path
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginOrRegister(),
+      home: SplashScreen(),
       theme: Provider.of<ThemeProvider>(context).themeData,
     ); // MaterialApp
   }

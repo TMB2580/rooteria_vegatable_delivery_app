@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/components/my_button.dart';
+import 'package:myapp/components/my_cart_tile.dart';
 import 'package:myapp/models/restaurant.dart';
 import 'package:myapp/pages/payment_page.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class CartPage extends StatelessWidget {
         //scaffold UI
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: Colors.transparent,
             foregroundColor: Theme.of(context).colorScheme.inversePrimary,
             title: const Text("Cart"),
             actions: [
@@ -58,7 +59,7 @@ class CartPage extends StatelessWidget {
           ),
           body: Column(
             children: [
-
+              
               // list of cart  
               Expanded(
                 child: Column(
@@ -66,7 +67,7 @@ class CartPage extends StatelessWidget {
                     userCart.isEmpty 
                     ? const Expanded(
                         child: Center(
-                          child: const Text("Cart is empty..."),
+                          child: Text("Cart is empty..."),
                           ),
                         )
                     : Expanded(
@@ -76,11 +77,8 @@ class CartPage extends StatelessWidget {
                           // get individual cart item
                           final cartItem = userCart[index];
                 
-                          // ret  urn cart tile UI
-                          return ListTile(
-                            title: Text(cartItem.name),
-                            subtitle: Text('\$${cartItem.price}'),
-                          );
+                          // return cart tile UI
+                          return MyCartTile(cartItem: cartItem);
                         },
                       ),
                     ),

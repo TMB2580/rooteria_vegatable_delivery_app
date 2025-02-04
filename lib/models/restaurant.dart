@@ -169,7 +169,6 @@ class Restaurant extends ChangeNotifier {
       category: FoodCategory.salads,
       availableAddons: [],
     ),
-
     Food(
       name: "Caesar Salad",
       description: "A caesar salad with croutons.",
@@ -255,11 +254,11 @@ class Restaurant extends ChangeNotifier {
   final List<CartItem> _cart = [];
 
   // add to cart
-  void addToCart(Food, List<Addon> selectedAddons) {
+  void addToCart(Food food, List<Addon> selectedAddons) {
     //see if there is a cart item already with same food and selected addons
     CartItem? cartItem = _cart.firstWhereOrNull((item) {
       // check if the food item are same
-      bool isSameFood = item.food == Food;
+      bool isSameFood = item.food == food;
 
       // check if the list of selected addons are the same
       bool isSameAddons = ListEquality().equals(
@@ -275,7 +274,7 @@ class Restaurant extends ChangeNotifier {
     }
     //otherwise, add new cart item to cart
     else {
-      _cart.add(CartItem(food: Food, selectedAddons: selectedAddons));
+      _cart.add(CartItem(food: food, selectedAddons: selectedAddons));
     }
     notifyListeners();
   }
@@ -354,7 +353,7 @@ class Restaurant extends ChangeNotifier {
     // Iterate through addons and add to receipt
     for (final cartItem in _cart) {
       receipt.writeln(
-        "${cartItem.quantity} x ${cartItem.name} - ${_formatPrice(cartItem.food.price)}",
+        "${cartItem.quantity} x ${cartItem.food} - ${_formatPrice(cartItem.food.price)}",
       );
       if (cartItem.selectedAddons.isNotEmpty) {
         receipt.writeln(
