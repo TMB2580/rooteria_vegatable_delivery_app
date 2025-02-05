@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // Navigate to the next screen (replace HomeScreen with your actual home screen)
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginOrRegister()), // Replace with your home screen widget
+        MaterialPageRoute(builder: (context) => LoginOrRegister()), 
       );
     });
   }
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE9F7EF), // Light green background color
+      backgroundColor: Theme.of(context).colorScheme.surface, // Light green background color
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
             // Logo with the "ROOTORIA" text and image
             Image.asset(
               "lib/images/logo/rootoria_logo.png",
-              height: 150, // Adjust size as needed
+              height: 500, // Adjust size as needed
             ),
             SizedBox(height: 20), // Spacing between logo and text
             Text(

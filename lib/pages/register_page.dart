@@ -27,10 +27,9 @@ class _RegisterPageState extends State<RegisterPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //logo
-            Icon(
-              Icons.lock_open_rounded,
-              size: 100,
-              color: Theme.of(context).colorScheme.inversePrimary,
+            Image.asset(
+              "lib/images/logo/rootoria_logo.png",
+              height: 250,
             ),
 
             const SizedBox(height: 25),

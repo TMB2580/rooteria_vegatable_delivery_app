@@ -19,7 +19,7 @@ class Food {
 
 // food categories
 
-enum FoodCategory { burgers, salads, sides, desserts, drinks }
+enum FoodCategory { vegetables, fruits }
 
 // food addons
 class Addon {

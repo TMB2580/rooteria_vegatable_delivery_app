@@ -44,21 +44,21 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //logo
-            Icon(
-              Icons.lock_open_rounded,
-              size: 100,
-              color: Theme.of(context).colorScheme.inversePrimary,
-            ),
+            Image.asset(
+              "lib/images/logo/rootoria_logo.png",
+              height: 200,
+            ), 
 
             const SizedBox(height: 25),
 
             //message, app slogan
             Text(
-              "Food Delivery App",
+              "Your journey to farm-fresh goodness begins here.",
               style: TextStyle(
                 fontSize: 20,
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
+              textAlign: TextAlign.center,
             ),
 
             const SizedBox(height: 25),

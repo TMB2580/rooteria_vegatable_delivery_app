@@ -63,11 +63,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/images/burgers/
-    - lib/images/sides/
-    - lib/images/salads/
-    - lib/images/drinks/
-    - lib/images/desserts/
+    - lib/images/fruits/
+    - lib/images/vegetables/
     - lib/images/logo/
 
   # To add images to your application, add an images section, like this:
